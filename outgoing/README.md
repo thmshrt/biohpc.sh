@@ -1,6 +1,78 @@
-# Biohpc #
+# Hart_MALDI
 
-## Problem Context ##
+## Getting Started
+
+### On Your Local Machine
+
+```sh
+git clone https://gitlab.com/krumsieklab/hart_maldi.git
+cd hart_maldi/
+
+# modify hart_maldi/config/config-local/instantiate.sh 
+# so that the line starting with --volume matches the path
+# to the correct directory on your local machine
+. config/config-biohpc/instantiate.sh
+```
+
+### On Biohpc
+
+**on your local machine**
+
+```sh
+# TODO
+# create ssh tunnel to biohpc
+```
+
+**on biohpc**
+
+```sh
+git clone https://gitlab.com/krumsieklab/hart_maldi.git
+cd hart_maldi/
+
+# modify hart_maldi/config/config-biohpc/instantiate.sh 
+# so that the line starting with --volume matches the path
+# to the correct directory on your local machine
+. config/config-biohpc/instantiate.sh
+```
+
+## Documentation
+
+A gitbook is soon to be available in `hart_maldi/examples/showcase`.
+
+## Docker
+
+### Directory Structure
+```
+config/
+	config-biohpc/
+		build-all.sh
+		build-this.sh
+		build-trunk.sh
+		dockerfiles/
+			docker-trunk.txt
+			thh-conda.Dockerfile
+			thh-editors.Dockerfile
+			thh-r.Dockerfile
+			thh-rspatial.Dockerfile
+			thh-tidyr.Dockerfile			
+		instantiate.sh
+	config-local/
+		build-all.sh
+		build-this.sh
+		build-trunk.sh
+		dockerfiles/
+			docker-trunk.txt
+			thh-conda.Dockerfile
+			thh-editors.Dockerfile
+			thh-r.Dockerfile
+			thh-rspatial.Dockerfile
+			thh-tidyr.Dockerfile			
+		instantiate.sh
+	df-for-biohpc.sh
+	sh-for-biohpc.sh
+```
+
+### What is all this?
 
 **Biohpc and `docker` commands**
 
@@ -19,11 +91,10 @@ not work on biohpc.
 This is where `sh-for-biohpc.sh` comes in. `sh-for-biohpc.sh` converts a
 `.sh` script to a biohpc valid bash script. An examples call would be:
 
-<span style="color:red">NEED TO UPDATE</span>
 ```sh
 # semantics
-# . sh-for-biohpc.sh <input file>
-. sh-for-biohpc.sh config-local/instantiate.sh 
+# . sh-for-biohpc.sh <input file> <output file>
+. sh-for-biohpc.sh config-local/instantiate.sh config-biohpc/instantiate.sh
 ```
 
 **Biohpc and `Dockerfile`s**
@@ -35,38 +106,47 @@ image with the command `docker1 build -t cowsay`, biohpc would create
 a docker image with the name `biohpc_thh4002/cowsay`. 
 
 This interferes with the `FROM <image>` line that begins EVERY 
-dockerfile except in cases where `<image>` refers to an image 
-located in dockerhub. To mitigate this issue `df-for-biohpc.sh`
-will convert this line for you. An example call would be:
+dockerfile. To mitigate this issue `df-for-biohpc.sh` will convert
+this line for you. An example call would be:
 
-<span style="color:red">NEED TO UPDATE</span>
 ```sh
 # syntax
-# . df-for-biohpc.sh <input file> 
+# . df-for-biohpc.sh <input file> <output file>
 . df-for-biohpc.sh \
+  config-local/dockerfiles/thh-editors.Dockefile \
+  config-biohpc/dockerfiles/thh-editors.Dockefile
 ```
 
-**Biohpc and `uid` and `gid`**
+**Biohpc and permissions**
 
 Biohpc restricts a container's ability to edit files. More specifically,
-only those containers matching a biohpc user id and user group or
+only those containers matching a biohpc user name and user group or
 those container whose username and group is root can edit files on 
 biohpc. (Root should never be the default user in a container. 
 Additionally, some programs such as RStudio disallow logging in as
 root).
 
 A quick solution is to match your username in the container 
-to that on biohpc by simply addind a new user as part of the 
-build process with `uid` and `gid` that match yours. This solution, 
-however, creates a portability problem. Other users cannot run
-the container you've created as themselves. 
+to that on biohpc, however the problem is not so simple, your
+username as well as your `uid` and `gid` must match on biohpc and
+ inside a container.
 
-To fix this problem, there are couple of scripts. 
-<span style="color:red">INCOMPLETE PARAGRAPH</span>
+Hence to fix this problem, you will need to find out your `uid`
+and `gid`. User the `id` command:
+
+```sh
+id
+```
+
+Then modify the appropriate section in `config-biohpc/thh-editors.Dockerfile`
+and `config-local/thh-editors.Dockerfile` to create a new user with
+your `uid` and `gid`. Additionally you'll need to replace my username
+ `thh4002` with your username in the rest of the files.
+
+I'm working on automating this with a bash script, so hang tight!
 
 ### Developing
 
-<span style="color:red">OUTDATED SECTION</span>
 Sometimes biohpc is down or you might want the comfort of 
 developing on your local laptop. To facilitate this, there are two
 separate, but equivalent configurations `config-biohpc` and 
@@ -102,43 +182,3 @@ in order to update `.sh` scripts and `Dockerfile`s respectively.
 
 THESE SCRIPTS ARE NOT EXHAUSTIVE AND ANY UPDATE MADE BY BIOHPC TO
 `docker1` MAY CAUSE THESE SCRIPTS TO BECOME NONFUNCTIONAL.
-
-## Other solutions ##
-
-### Override `CMD` at run time ###
-
-<span style="color:red">INCOMPLETE DESCRIPTION</span>
-- requires
-  - root access inside container
-
-- example
-```sh
-docker run \
-	--interactive \
-	--tty \
-	mycontainer \
-	sudo su \
-    && usermod \
-	   --move-home --home /home/newbuntu \
-	   --login newbuntu \
-	   --shell /bin/bash \
-	   ubuntu \
-    && echo newbuntu:newbuntu | chpasswd \
-    && echo "newbuntu ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers \
-    && su newbuntu \
-    && cd
-```
-
-### Use `--user` with `docker run` ###
-
-<span style="color:red">INCOMPLETE DESCRIPTION</span>
-- fails when
-  - uid from outside container does not exist inside container
-
-- requires
-  - normal docker interface
-  
-- example
-  ```sh
-  docker run --interactive --tty --user newbuntu:1000 mycontainer 
-  ```
