@@ -19,7 +19,8 @@ not work on biohpc.
 This is where `sh-for-biohpc.sh` comes in. `sh-for-biohpc.sh` converts a
 `.sh` script to a biohpc valid bash script. An examples call would be:
 
-<span style="color:red">NEED TO UPDATE</span>
+<span style="color:red;font-weight:bold">NEED TO UPDATE</span>
+
 ```sh
 # semantics
 # . sh-for-biohpc.sh <input file>
@@ -39,7 +40,8 @@ dockerfile except in cases where `<image>` refers to an image
 located in dockerhub. To mitigate this issue `df-for-biohpc.sh`
 will convert this line for you. An example call would be:
 
-<span style="color:red">NEED TO UPDATE</span>
+<span style="color:red;font-weight:bold">NEED TO UPDATE</span>
+
 ```sh
 # syntax
 # . df-for-biohpc.sh <input file> 
@@ -62,11 +64,11 @@ however, creates a portability problem. Other users cannot run
 the container you've created as themselves. 
 
 To fix this problem, there are couple of scripts. 
-<span style="color:red">INCOMPLETE PARAGRAPH</span>
+<span style="color:red;font-weight:bold">INCOMPLETE PARAGRAPH</span>
 
 ### Developing
 
-<span style="color:red">OUTDATED SECTION</span>
+<span style="color:red;font-weight:bold">OUTDATED SECTION</span>
 Sometimes biohpc is down or you might want the comfort of 
 developing on your local laptop. To facilitate this, there are two
 separate, but equivalent configurations `config-biohpc` and 
@@ -107,7 +109,7 @@ THESE SCRIPTS ARE NOT EXHAUSTIVE AND ANY UPDATE MADE BY BIOHPC TO
 
 ### Override `CMD` at run time ###
 
-<span style="color:red">INCOMPLETE DESCRIPTION</span>
+<span style="color:red;font-weight:bold">INCOMPLETE DESCRIPTION</span>
 - requires
   - root access inside container
 
@@ -131,7 +133,8 @@ docker run \
 
 ### Use `--user` with `docker run` ###
 
-<span style="color:red">INCOMPLETE DESCRIPTION</span>
+<span style="color:red;font-weight:bold">INCOMPLETE DESCRIPTION</span>
+
 - fails when
   - uid from outside container does not exist inside container
 
