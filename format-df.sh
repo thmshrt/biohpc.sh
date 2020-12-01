@@ -1,6 +1,6 @@
 # inputs
 dockerfile_in=$1
-dockerfile_out=$1
+dockerfile_out=$2
 
 if [[ $dockerfile_out = '' ]];
 then
