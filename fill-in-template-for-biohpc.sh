@@ -1,5 +1,5 @@
 image=$1
-user=`id --name`
+user=`id | sed -r "s/uid=.+\((.+)\) gid.+/\1/"`
 uid=`id --user`
 groups=`id --groups | sed 's/ /,/g'`
 
