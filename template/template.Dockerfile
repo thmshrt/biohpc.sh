@@ -11,7 +11,6 @@ RUN usermod \
     --shell /bin/bash \
     --uid <uid> \
     # --groups <groups> \
-    ubuntu \
     && echo <user>:<user> | chpasswd \
     && echo "<user> ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 
