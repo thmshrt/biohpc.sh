@@ -1,6 +1,6 @@
 image=$1
 user=`id --name`
-uid=`id --uid`
+uid=`id --user`
 # groups=1001,1002,1003		
 
 # create directory if it does not exist

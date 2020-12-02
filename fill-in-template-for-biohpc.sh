@@ -1,6 +1,6 @@
 image=$1
 user=`id --name`
-uid=`id --uid`
+uid=`id --user`
 groups=`id --groups | sed 's/ /,/g'`
 
 # create directory if it does not exist
