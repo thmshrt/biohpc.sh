@@ -10,6 +10,9 @@ then
     return 1
 fi
 
+# ensure the name is safe
+image_safe=`echo $image | sed 's/\//_/g'`
+
 # create directory if it does not exist
 if [[ ! -d $image-$user ]];
 then
