@@ -11,7 +11,7 @@ then
 fi
 
 # ensure the name is safe
-image_safe=`echo $image | sed 's/\//_/g'`
+image_safe=`echo $from_image | sed 's/\//_/g'`
 
 # create directory if it does not exist
 if [[ ! -d $image_safe-$user ]];
@@ -21,20 +21,16 @@ fi
 
 # dockerfile
 cat template/template.Dockerfile \
-    | sed -E "s/<template>/$image_safe-$user/g" \
+    | sed -E "s/<image>/$image/g" \
     | sed -E "s/<user>/$user/g" \
     | sed -E "s/<uid>/$uid/g" \
     | sed -E "s/<groups>/$groups/g" \
-    | sed -E "s/<image>/$image_safe/g" \
 	  > ./$image_safe-$user/$image_safe-$user.Dockerfile
 
 # build.sh
 cat template/build.sh \
-    | sed -E "s/<template>/$image_safe-$user/g" \
-    | sed -E "s/<user>/$user/g" \
-    | sed -E "s/<uid>/$uid/g" \
-    | sed -E "s/<groups>/$groups/g" \
     | sed -E "s/<image>/$image_safe/g" \
+    | sed -E "s/<user>/$user/g" \
     | sed -E 's/sudo docker /docker /g' \
     | sed -E 's/docker image /docker /g' \
     | sed -E 's/docker /docker1 /g' \
@@ -43,10 +39,6 @@ cat template/build.sh \
 
 # instantiate.sh
 cat template/instantiate.sh \
-    | sed -E "s/<template>/$image_safe-$user/g" \
-    | sed -E "s/<user>/$user/g" \
-    | sed -E "s/<uid>/$uid/g" \
-    | sed -E "s/<groups>/$groups/g" \
     | sed -E "s/<image>/$image_safe/g" \
     | sed -E 's/sudo docker /docker /g' \
     | sed -E 's/docker image /docker /g' \
