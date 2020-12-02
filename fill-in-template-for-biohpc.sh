@@ -35,6 +35,10 @@ cat template/build.sh \
     | sed -E "s/<uid>/$uid/g" \
     | sed -E "s/<groups>/$groups/g" \
     | sed -E "s/<image>/$image_safe/g" \
+    | sed -E 's/sudo docker /docker /g' \
+    | sed -E 's/docker image_safe /docker /g' \
+    | sed -E 's/docker /docker1 /g' \
+    | sed -E 's/--tag/-t/g' \
 	  > ./$image_safe-$user/build.sh
 
 # instantiate.sh
