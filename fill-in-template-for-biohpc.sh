@@ -11,7 +11,7 @@ then
 fi
 
 # ensure the name is safe
-image_safe=`echo $from_image | sed 's/\//_/g'`
+image_safe=`echo $image | sed 's/\//_/g'`
 
 # create directory if it does not exist
 if [[ ! -d $image_safe-$user ]];
