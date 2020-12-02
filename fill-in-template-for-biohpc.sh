@@ -25,7 +25,7 @@ cat template/template.Dockerfile \
     | sed -E "s/<user>/$user/g" \
     | sed -E "s/<uid>/$uid/g" \
     | sed -E "s/<groups>/$groups/g" \
-    | sed -E "s/<image_safe>/$image_safe/g" \
+    | sed -E "s/<image>/$image_safe/g" \
 	  > ./$image_safe-$user/$image_safe-$user.Dockerfile
 
 # build.sh
@@ -34,7 +34,7 @@ cat template/build.sh \
     | sed -E "s/<user>/$user/g" \
     | sed -E "s/<uid>/$uid/g" \
     | sed -E "s/<groups>/$groups/g" \
-    | sed -E "s/<image_safe>/$image_safe/g" \
+    | sed -E "s/<image>/$image_safe/g" \
 	  > ./$image_safe-$user/build.sh
 
 # instantiate.sh
@@ -43,7 +43,7 @@ cat template/instantiate.sh \
     | sed -E "s/<user>/$user/g" \
     | sed -E "s/<uid>/$uid/g" \
     | sed -E "s/<groups>/$groups/g" \
-    | sed -E "s/<image_safe>/$image_safe/g" \
+    | sed -E "s/<image>/$image_safe/g" \
     | sed -E 's/sudo docker /docker /g' \
     | sed -E 's/docker image_safe /docker /g' \
     | sed -E 's/docker /docker1 /g' \
