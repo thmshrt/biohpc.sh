@@ -6,7 +6,7 @@ dockerfile_out=$2
 if [[ $dockerfile_in = '' ]];
 then
     echo param dockerfile_in must not be empty
-    exit
+    exit 1
 fi
 
 # set dockerfile_out if non provided

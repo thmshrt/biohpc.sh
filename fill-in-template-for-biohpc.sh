@@ -7,7 +7,7 @@ groups=`id --groups | sed 's/ /,/g'`
 if [[ $image = '' ]];
 then
     echo param image must not be empty
-    exit
+    exit 1
 fi
 
 # create directory if it does not exist
