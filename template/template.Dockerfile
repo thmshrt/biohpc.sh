@@ -1,7 +1,7 @@
 
 #BEGIN: ---------------- BUILD TIME ----------------
 
-FROM <image>:latest
+FROM <image>-<user>:latest
 
 USER root
 
