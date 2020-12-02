@@ -6,7 +6,7 @@ FROM <image>:latest
 USER root
 
 RUN usermod \
-    --move-home --home /home/<user> \
+    --move-home --home /home/<user> ubuntu \
     --login <user> \
     --shell /bin/bash \
     --uid <uid> \
