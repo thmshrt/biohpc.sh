@@ -6,7 +6,7 @@ bashscript_out=$2
 if [[ $bashscript_in = '' ]];
 then
     echo param bashscript_in must not be empty
-    exit 1
+    return 1
 fi
 
 # set default if bashscript_out not provided
