@@ -10,7 +10,7 @@ then
 fi
 
 # dockerfile
-cat template/template.Dockerfile | \
+cat template/template.Dockerfile \
     | sed -E "s/<template>/$image-$user/g" \
     | sed -E "s/<user>/$user/g" \
     | sed -E "s/<uid>/$uid/g" \
@@ -19,7 +19,7 @@ cat template/template.Dockerfile | \
 	  > ./$image-$user/$image-$user.Dockerfile
 
 # build.sh
-cat template/build.sh | \
+cat template/build.sh \
     | sed -E "s/<template>/$image-$user/g" \
     | sed -E "s/<user>/$user/g" \
     | sed -E "s/<uid>/$uid/g" \
