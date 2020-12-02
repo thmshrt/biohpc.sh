@@ -2,6 +2,14 @@
 dockerfile_in=$1
 dockerfile_out=$2
 
+# param checks
+if [[ $dockerfile_in = '' ]];
+then
+    echo param dockerfile_in must not be empty
+    exit
+fi
+
+# set dockerfile_out if non provided
 if [[ $dockerfile_out = '' ]];
 then
     dockerfile_out=biohpc-$dockerfile_in

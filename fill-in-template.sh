@@ -3,6 +3,13 @@ user=`id | sed -r "s/uid=.+\((.+)\) gid.+/\1/"`
 uid=`id --user`
 groups=`id --groups | sed 's/ /,/g'`
 
+# param checks
+if [[ $image = '' ]];
+then
+    echo param image must not be empty
+    exit
+fi
+
 # create directory if it does not exist
 if [[ ! -d $image-$user ]];
 then

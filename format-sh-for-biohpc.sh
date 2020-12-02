@@ -2,6 +2,14 @@
 bashscript_in=$1
 bashscript_out=$2
 
+# param checks
+if [[ $bashscript_in = '' ]];
+then
+    echo param bashscript_in must not be empty
+    exit
+fi
+
+# set default if bashscript_out not provided
 if [[ $bashscript_out = '' ]];
 then
     bashscript_out=biohpc-$bashscript_in
