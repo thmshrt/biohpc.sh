@@ -4,6 +4,8 @@
 
 **Biohpc and `docker` commands**
 
+<span style="color:red;font-weight:bold">NOT UP TO DATE AS OF 20201202</span>
+
 Biohpc has restricted / modified how we may interact with docker. 
 The largest difference is the requirement that `docker` is now 
 `docker1`. 

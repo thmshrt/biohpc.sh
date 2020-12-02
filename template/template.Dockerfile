@@ -15,7 +15,7 @@ RUN usermod \
     && echo <user>:<user> | chpasswd \
     && echo "<user> ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-USER newbuntu
+USER <user>
 
 #END:   ---------------- BUILD TIME ----------------
 
