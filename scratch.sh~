@@ -1,2 +1,0 @@
-id | \
-    sed -r "s/FROM ([[:graph:]]*)/FROM biohpc_$USER\/\1/" \
