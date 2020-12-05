@@ -1,4 +1,3 @@
-
 # make sure that #BEGIN and #END exist
 start_index=$(\
 cat $HOME/.bashrc \
