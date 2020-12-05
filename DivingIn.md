@@ -4,52 +4,57 @@
 
 **create a directory**
 
-	```sh
-	mkdir myexample
-	cd myexample
-	```
+```sh
+mkdir myexample
+cd myexample
+```
 	
 **create `first.Dockerfile`**
 
-	```txt
-	FROM ubuntu:20.04
-	RUN useradd ubuntu
-	USER ubuntu
-	CMD cd && /bin/bash
-	```
+```txt
+FROM ubuntu:20.04
+RUN useradd ubuntu
+USER ubuntu
+CMD cd && /bin/bash
+```
 
 **create `build-first.sh`**
-	```sh
-	sudo docker image build \
-	--tag first:latest \
-	--file first.Dockerfile \
-	`pwd`
-	```
+
+```sh
+sudo docker image build \
+--tag first:latest \
+--file first.Dockerfile \
+`pwd`
+```
 
 **build image**
-	```sh
-	. build-first.sh
-	sudo docker image list
-	```
+
+```sh
+. build-first.sh
+sudo docker image list
+```
 	
 **create `instantiate-first.sh`**
-	```sh
-	sudo docker container run \
-	--interactive --tty \
-	--volume `pwd`:/home/ubuntu/currentdir \
-	first:latest
-	```
+
+```sh
+sudo docker container run \
+--interactive --tty \
+--volume `pwd`:/home/ubuntu/currentdir \
+first:latest
+```
 
 **instantiate**
-	```sh
-	. instantiate-first.sh
-	# you'll get a command prompt ubuntu@id
-	```
+
+```sh
+. instantiate-first.sh
+# you'll get a command prompt ubuntu@id
+```
 
 **edit file**
-	```sh
-	touch currentdir/myfile
-	```
+
+```sh
+touch currentdir/myfile
+```
 
 ### Basic Workflow on Biohpc ###
 
@@ -72,30 +77,34 @@
 	- use `-t` instead of `--tag`
 	- understand that image will be name `biohpc_<user>/tag`
 	- understand `docker1` requires file to begin `/workdir/$USER/...`
-	```sh
-	docker1 build \
-	-t first:latest \
-	--file first.Dockerfile \
-	cd /workdir/$USER/myexample/
-	```
+
+```sh
+docker1 build \
+-t first:latest \
+--file first.Dockerfile \
+cd /workdir/$USER/myexample/
+```
 
 **build image**
-	```sh
-	. biohpc-build-first.sh
-	# sudo docker image list
-	docker1 images
-	```
+
+```sh
+. biohpc-build-first.sh
+# sudo docker image list
+docker1 images
+```
 
 **instantiate**
-	```sh
-	. instantiate-first.sh
-	# you'll get a command prompt ubuntu@id
-	```
+
+```sh
+. instantiate-first.sh
+# you'll get a command prompt ubuntu@id
+```
 
 **edit file**
-	```sh
-	touch currentdir/myfile
-	```
+
+```sh
+touch currentdir/myfile
+```
 
 #### Problems with Updated Workflow ####
 
@@ -114,23 +123,26 @@
 **create `instantiate-first.sh`**
 	- use `docker1` instead of `sudo docker`
 	- understand that image will be name `biohpc_$USER/tag`
-	```sh
-	docker1 container run \
-	--interactive --tty \
-	--volume `pwd`:/home/ubuntu/currentdir \
-	biohpc_$USER/first:latest
-	```
+
+```sh
+docker1 container run \
+--interactive --tty \
+--volume `pwd`:/home/ubuntu/currentdir \
+biohpc_$USER/first:latest
+```
 	
 **instantiate**
-	```sh
-	. instantiate-first.sh
-	# you'll get a command prompt ubuntu@id
-	```
+
+```sh
+. instantiate-first.sh
+# you'll get a command prompt ubuntu@id
+```
 
 **edit file**
-	```sh
-	touch currentdir/myfile
-	```
+
+```sh
+touch currentdir/myfile
+```
 	
 #### Problems with UpUpdated Workflow ####
 
@@ -149,51 +161,59 @@
 
 **create `first_for_me.Dockerfile`**
 	- use results of `id --user` instead of 6329
-	```sh
-	FROM ubuntu:20.04
-	RUN useradd ubuntu 
-	RUN usermod --uid 6329
-	USER ubuntu
-	CMD cd && /bin/bash
-	```
+
+```sh
+FROM ubuntu:20.04
+RUN useradd ubuntu 
+RUN usermod --uid 6329
+USER ubuntu
+CMD cd && /bin/bash
+```
 
 **create `biohpc-build-first-for-me.sh`**
-	```sh
-	docker1 build \
-	-t first-for-me:latest \
-	--file first-for-me.Dockerfile \
-	cd /workdir/$USER/myexample/
-	```
+
+```sh
+docker1 build \
+-t first-for-me:latest \
+--file first-for-me.Dockerfile \
+cd /workdir/$USER/myexample/
+```
 
 **build image**
-	```sh
-	. biohpc-build-first-for-me.sh
-	# sudo docker image list
-	docker1 images
-	```
+
+```sh
+. biohpc-build-first-for-me.sh
+# sudo docker image list
+docker1 images
+```
 
 **create `instantiate-first-for-me.sh`**
-	```sh
-	docker1 container run \
-	--interactive --tty \
-	--volume `pwd`:/home/ubuntu/currentdir \
-	biohpc_$USER/first-for-me:latest
-	```
+
+```sh
+docker1 container run \
+--interactive --tty \
+--volume `pwd`:/home/ubuntu/currentdir \
+biohpc_$USER/first-for-me:latest
+```
 	
 **instantiate**
-	```sh
-	. instantiate-first-for-me.sh
-	# you'll get a command prompt ubuntu@id
-	```
-**edit file**
-	```sh
-	touch currentdir/myfile
-	```
+
+```sh
+. instantiate-first-for-me.sh
+# you'll get a command prompt ubuntu@id
+```
 
 **edit file**
-	```sh
-	touch currentdir/myfile
-	```
+
+```sh
+touch currentdir/myfile
+```
+
+**edit file**
+
+```sh
+touch currentdir/myfile
+```
 
 #### All Stages of UpUpUpdated Workflow ####
 
