@@ -3,14 +3,12 @@
 ### Basic Workflow outside Biohpc ###
 
 **create a directory**
-
 	```sh
 	mkdir myexample
 	cd myexample
 	```
 	
 **create `first.Dockerfile`**
-
 	```txt
 	FROM ubuntu:20.04
 	RUN useradd ubuntu
