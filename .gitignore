@@ -7,3 +7,6 @@ biohpc.sh-tag-for-docker.io.sh~
 remove-from-bashrc.sh~
 tag-docker.io.sh~
 tag-for-docker.io.sh~
+myexample/biohpc-build-first-for-me.sh~
+myexample/biohpc-first-for-me.Dockerfile~
+myexample/biohpc-instantiate-first-for-me.sh~

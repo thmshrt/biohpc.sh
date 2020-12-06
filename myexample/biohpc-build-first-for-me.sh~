@@ -1,4 +1,0 @@
-docker1 build \
-	-t first-for-me:latest \
-	--file first-for-me.Dockerfile \
-	cd /workdir/$USER/myexample/
