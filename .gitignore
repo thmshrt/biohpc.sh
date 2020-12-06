@@ -10,3 +10,14 @@ tag-for-docker.io.sh~
 myexample/biohpc-build-first-for-me.sh~
 myexample/biohpc-first-for-me.Dockerfile~
 myexample/biohpc-instantiate-first-for-me.sh~
+add-to-bashrc.sh~
+biohpc-build-explicit.sh~
+biohpc-build-for-user.sh~
+biohpc.sh-build-for-user.sh~
+biohpc.sh-format-sh.sh~
+biohpc.sh-tag-for-docker.io.sh~
+DivingDeeper.md~
+DivingIn.md~
+remove-from-bashrc.sh~
+tag-docker.io.sh~
+tag-for-docker.io.sh~
