@@ -1,4 +1,4 @@
-tag=$1
+xotag=$1
 user=$2
 filepath=$3
 uid=$(id --user $user)

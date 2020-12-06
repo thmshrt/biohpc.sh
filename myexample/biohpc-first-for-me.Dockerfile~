@@ -1,0 +1,5 @@
+FROM ubuntu:20.04
+RUN useradd ubuntu 
+RUN usermod --uid 6329
+USER ubuntu
+CMD cd && /bin/bash

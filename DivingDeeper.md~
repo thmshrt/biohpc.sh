@@ -60,15 +60,15 @@ touch currentdir/myfile
 
 #### Problems with "Basic Workflow outside Biohpc" ####
 
-| Step                      | Succeeds | Reason             |
-|---------------------------|----------|--------------------|
-| create a directory        | yes      |                    |
-| create `first.Dockerfile` | yes      |                    |
-| create `build-first.sh`   | yes      |                    |
-| build image               | no       | no sudo privileges |
-| create `instantiate.sh`   | yes      |                    |
-| instantiate container     | no       | build image fails  |
-| edit file                 | no       | build image fails  |
+| Step                    | Succeeds | Reason             |
+|-------------------------|----------|--------------------|
+| create a directory      | yes      |                    |
+| create `Dockerfile`     | yes      |                    |
+| create `build.sh`       | yes      |                    |
+| build image             | no       | no sudo privileges |
+| create `instantiate.sh` | yes      |                    |
+| instantiate container   | no       | build image fails  |
+| edit file               | no       | build image fails  |
 
 #### solving "build image" failure ####
 
@@ -98,20 +98,26 @@ docker1 images
 
 ```sh
 . instantiate-first.sh
-# this will fail
+# you'll get a command prompt ubuntu@id
+```
+
+**edit file**
+
+```sh
+touch currentdir/myfile
 ```
 
 #### Problems with Updated Workflow ####
 
-| Step                      | Succeeds | Reason                      |
-|---------------------------|----------|-----------------------------|
-| create a directory        | yes      |                             |
-| create `first.Dockerfile` | yes      |                             |
-| create `build-first.sh`   | yes      |                             |
-| build image               | yes      |                             |
-| create `instantiate.sh`   | yes      |                             |
-| instantiate container     | no       | no sudo priveleges          |
-| edit file                 | no       | instantiate container fails |
+| Step                    | Succeeds | Reason                      |
+|-------------------------|----------|-----------------------------|
+| create a directory      | yes      |                             |
+| create `Dockerfile`     | yes      |                             |
+| create `build.sh`       | yes      |                             |
+| build image             | yes      |                             |
+| create `instantiate.sh` | yes      |                             |
+| instantiate container   | no       | no sudo priveleges          |
+| edit file               | no       | instantiate container fails |
 
 #### solving "instantiate container" failure ####
 
@@ -130,7 +136,7 @@ biohpc_$USER/first:latest
 **instantiate**
 
 ```sh
-. biohpc-instantiate-first.sh
+. instantiate-first.sh
 # you'll get a command prompt ubuntu@id
 ```
 
@@ -142,15 +148,16 @@ touch currentdir/myfile
 	
 #### Problems with UpUpdated Workflow ####
 
-| Step                      | Succeeds | Reason               |
-|---------------------------|----------|----------------------|
-| create a directory        | yes      |                      |
-| create `first.Dockerfile` | yes      |                      |
-| create `build-first.sh`   | yes      |                      |
-| build image               | yes      |                      |
-| create `instantiate.sh`   | yes      |                      |
-| instantiate container     | yes      |                      |
-| edit file                 | no       | incorrect priveleges |
+| Step                    | Succeeds | Reason               |
+|-------------------------|----------|----------------------|
+| create a directory      | yes      |                      |
+| create `Dockerfile`     | yes      |                      |
+| create `build.sh`       | yes      |                      |
+| build image             | yes      |                      |
+| create `instantiate.sh` | yes      |                      |
+| instantiate container   | yes      |                      |
+| edit file               | no       | incorrect priveleges |
+
 
 #### solving "edit file" failure ####
 
@@ -161,8 +168,7 @@ touch currentdir/myfile
 ```sh
 FROM ubuntu:20.04
 RUN useradd ubuntu 
-ARG uid=6329
-RUN usermod --uid $uid ubuntu
+RUN usermod --uid 6329
 USER ubuntu
 CMD cd && /bin/bash
 ```
@@ -173,7 +179,6 @@ CMD cd && /bin/bash
 docker1 build \
 -t first-for-me:latest \
 --file first-for-me.Dockerfile \
---build-arg uid=$(id --user) \
 cd /workdir/$USER/myexample/
 ```
 
@@ -207,15 +212,14 @@ biohpc_$USER/first-for-me:latest
 touch currentdir/myfile
 ```
 
-#### Workflow Succeeds ####
-	
-| Step                          | Succeeds | Reason |
-|-------------------------------|----------|--------|
-| create a directory            | yes      |        |
-| create `first.Dockerfile`     | yes      |        |
-| create `build-first.sh`       | yes      |        |
-| build image                   | yes      |        |
-| create `instantiate-first.sh` | yes      |        |
-| instantiate container         | yes      |        |
-| edit file                     | yes      |        |
+#### All Stages of UpUpUpdated Workflow ####
 
+| Step                    | Succeeds | Reason |
+|-------------------------|----------|--------|
+| create a directory      | yes      |        |
+| create `Dockerfile`     | yes      |        |
+| create `build.sh`       | yes      |        |
+| build image             | yes      |        |
+| create `instantiate.sh` | yes      |        |
+| instantiate container   | yes      |        |
+| edit file               | yes      |        |
